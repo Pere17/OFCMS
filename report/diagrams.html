@@ -1,0 +1,522 @@
+<title>OFCMS Design Diagrams</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  :root {
+    --bg: #f5f7fa;
+    --surface: #ffffff;
+    --paper: #ffffff;
+    --paper-border: #d7dee6;
+    --ink: #1c2b3a;
+    --ink-muted: #5b6b7d;
+    --ink-faint: #8695a6;
+    --primary: #1e3a5f;
+    --primary-light: #2e5090;
+    --accent: #b9791f;
+    --accent-soft: #f4e3c4;
+    --border: #dde3ea;
+    --rule: #c7d0da;
+    --shadow: 0 1px 2px rgba(20, 34, 51, 0.06), 0 8px 24px rgba(20, 34, 51, 0.06);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f151d;
+      --surface: #161f2a;
+      --paper: #f7f5f0;
+      --paper-border: #2a3543;
+      --ink: #e6ecf3;
+      --ink-muted: #9aa8b8;
+      --ink-faint: #6d7a8a;
+      --primary: #7fa1d6;
+      --primary-light: #a9c1e8;
+      --accent: #e8b158;
+      --accent-soft: #3a2f1c;
+      --border: #263140;
+      --rule: #2c3949;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 28px rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0f151d;
+    --surface: #161f2a;
+    --paper: #f7f5f0;
+    --paper-border: #2a3543;
+    --ink: #e6ecf3;
+    --ink-muted: #9aa8b8;
+    --ink-faint: #6d7a8a;
+    --primary: #7fa1d6;
+    --primary-light: #a9c1e8;
+    --accent: #e8b158;
+    --accent-soft: #3a2f1c;
+    --border: #263140;
+    --rule: #2c3949;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 28px rgba(0, 0, 0, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 56px 24px 96px;
+  }
+
+  header.masthead {
+    margin-bottom: 48px;
+  }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 38px);
+    line-height: 1.15;
+    margin: 0 0 12px;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+
+  .lede {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-muted);
+    max-width: 62ch;
+    margin: 0;
+  }
+
+  .toc {
+    margin-top: 28px;
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+  }
+
+  .toc a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--primary-light);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .toc a:hover { text-decoration: underline; }
+  .toc a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+
+  section.figure {
+    margin-bottom: 56px;
+    scroll-margin-top: 24px;
+  }
+
+  .fig-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+
+  .fig-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  h2 {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 21px;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .caption {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-muted);
+    margin: 6px 0 18px;
+    max-width: 68ch;
+  }
+
+  .paper {
+    background: var(--paper);
+    border: 1px solid var(--paper-border);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: 22px;
+    overflow-x: auto;
+  }
+
+  .paper pre.mermaid {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    min-width: fit-content;
+  }
+
+  hr.rule {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 48px 0;
+  }
+
+  footer {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 40px;
+  }
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="eyebrow">OFCMS &middot; Chapter Three companion</p>
+    <h1>Design &amp; Modelling Diagrams</h1>
+    <p class="lede">
+      Seven figures supporting the system analysis and design chapter of the
+      Online Feedback and Complaint Management System (OFCMS) report — system
+      architecture, entity&ndash;relationship model, and four UML views of the
+      same complaint lifecycle described in the text.
+    </p>
+    <nav class="toc" aria-label="Figure index">
+      <a href="#fig-3-1">3.1 Architecture</a>
+      <a href="#fig-3-2">3.2 ER Diagram</a>
+      <a href="#fig-3-3">3.3 Use Case</a>
+      <a href="#fig-3-4">3.4 Class Diagram</a>
+      <a href="#fig-3-5">3.5 Sequence</a>
+      <a href="#fig-3-6">3.6 Activity</a>
+      <a href="#fig-3-7">3.7 Flowchart</a>
+    </nav>
+  </header>
+
+  <section class="figure" id="fig-3-1">
+    <div class="fig-head">
+      <span class="fig-num">FIG. 3.1</span>
+      <h2>System Architecture</h2>
+    </div>
+    <p class="caption">The MVC request lifecycle: every request passes through role-based middleware before reaching a controller, which reads and writes through Eloquent models to the database and renders a Blade view in response.</p>
+    <div class="paper">
+<pre class="mermaid">
+flowchart LR
+    U["Browser<br/>(Complainant / Admin / Super Admin)"] -->|HTTP request| R["Routes<br/>web.php"]
+    R --> M{"RoleMiddleware<br/>role + is_active check"}
+    M -->|denied| F["403 Forbidden"]
+    M -->|allowed| C["Controller<br/>Complainant / Admin / SuperAdmin / Category"]
+    C --> EM["Eloquent Models<br/>User · Complaint · Category · Response · Feedback"]
+    EM --> DB[("MySQL / MariaDB")]
+    C --> N["Notification System<br/>database + mail channel"]
+    C --> V["Blade View"]
+    V -->|HTML response| U
+    N -.-> U
+</pre>
+    </div>
+  </section>
+
+  <section class="figure" id="fig-3-2">
+    <div class="fig-head">
+      <span class="fig-num">FIG. 3.2</span>
+      <h2>Entity&ndash;Relationship Diagram</h2>
+    </div>
+    <p class="caption">The six core tables and their relationships, as implemented in the migrations described in Section 3.8.</p>
+    <div class="paper">
+<pre class="mermaid">
+erDiagram
+    USERS ||--o{ COMPLAINTS : submits
+    USERS ||--o{ FEEDBACK : submits
+    USERS ||--o{ RESPONSES : writes
+    USERS ||--o{ COMPLAINTS : "assigned to"
+    CATEGORIES ||--o{ COMPLAINTS : classifies
+    COMPLAINTS ||--o{ RESPONSES : receives
+    USERS ||--o{ NOTIFICATIONS : receives
+
+    USERS {
+        bigint id PK
+        string name
+        string email
+        string phone
+        enum role
+        boolean is_active
+        string password
+    }
+    CATEGORIES {
+        bigint id PK
+        string name
+        text description
+        boolean is_active
+    }
+    COMPLAINTS {
+        bigint id PK
+        bigint user_id FK
+        bigint category_id FK
+        string reference_number
+        string subject
+        text description
+        enum status
+        enum priority
+        bigint assigned_to FK
+        timestamp resolved_at
+    }
+    RESPONSES {
+        bigint id PK
+        bigint complaint_id FK
+        bigint admin_id FK
+        text message
+    }
+    FEEDBACK {
+        bigint id PK
+        bigint user_id FK
+        string subject
+        text message
+        tinyint rating
+        boolean is_anonymous
+    }
+    NOTIFICATIONS {
+        string id PK
+        string type
+        bigint notifiable_id FK
+        json data
+        timestamp read_at
+    }
+</pre>
+    </div>
+  </section>
+
+  <section class="figure" id="fig-3-3">
+    <div class="fig-head">
+      <span class="fig-num">FIG. 3.3</span>
+      <h2>Use Case Diagram</h2>
+    </div>
+    <p class="caption">Three actors and their principal use cases. The Super Administrator inherits every Administrator use case in addition to user and category management.</p>
+    <div class="paper">
+<pre class="mermaid">
+flowchart LR
+    subgraph Actors[" "]
+        direction TB
+        A1(["&#128100; Complainant"])
+        A2(["&#128100; Administrator"])
+        A3(["&#128100; Super Administrator"])
+    end
+
+    subgraph UC1["Complainant use cases"]
+        direction TB
+        U1(["Register / Log In"])
+        U2(["Submit Complaint"])
+        U3(["Track Complaint Status"])
+        U4(["Submit Feedback"])
+        U5(["View Notifications"])
+    end
+
+    subgraph UC2["Administrator use cases"]
+        direction TB
+        U6(["Review &amp; Filter Complaints"])
+        U7(["Respond / Resolve Complaint"])
+        U8(["View Feedback"])
+        U9(["View &amp; Export Reports"])
+    end
+
+    subgraph UC3["Super Administrator use cases"]
+        direction TB
+        U10(["Manage User Accounts"])
+        U11(["Manage Categories"])
+    end
+
+    A1 --- U1
+    A1 --- U2
+    A1 --- U3
+    A1 --- U4
+    A1 --- U5
+
+    A2 --- U6
+    A2 --- U7
+    A2 --- U8
+    A2 --- U9
+
+    A3 --- U6
+    A3 --- U7
+    A3 --- U8
+    A3 --- U9
+    A3 --- U10
+    A3 --- U11
+</pre>
+    </div>
+  </section>
+
+  <section class="figure" id="fig-3-4">
+    <div class="fig-head">
+      <span class="fig-num">FIG. 3.4</span>
+      <h2>Class Diagram</h2>
+    </div>
+    <p class="caption">The five core Eloquent model classes, their key attributes, role-check methods, and associations.</p>
+    <div class="paper">
+<pre class="mermaid">
+classDiagram
+    class User {
+        +int id
+        +string name
+        +string email
+        +string phone
+        +string role
+        +bool is_active
+        +isAdmin() bool
+        +isSuperAdmin() bool
+        +isComplainant() bool
+    }
+    class Category {
+        +int id
+        +string name
+        +string description
+        +bool is_active
+    }
+    class Complaint {
+        +int id
+        +string reference_number
+        +string subject
+        +text description
+        +string status
+        +string priority
+        +datetime resolved_at
+    }
+    class Response {
+        +int id
+        +text message
+        +datetime created_at
+    }
+    class Feedback {
+        +int id
+        +string subject
+        +text message
+        +int rating
+        +bool is_anonymous
+    }
+
+    User "1" --> "*" Complaint : submits
+    User "1" --> "*" Feedback : submits
+    User "1" --> "*" Response : writes (as admin)
+    User "1" --> "*" Complaint : assignedTo
+    Category "1" --> "*" Complaint : classifies
+    Complaint "1" --> "*" Response : has
+</pre>
+    </div>
+  </section>
+
+  <section class="figure" id="fig-3-5">
+    <div class="fig-head">
+      <span class="fig-num">FIG. 3.5</span>
+      <h2>Sequence Diagram &mdash; Complaint Submission &amp; Resolution</h2>
+    </div>
+    <p class="caption">The end-to-end interaction between a Complainant, an Administrator, and the system, from submission through to resolution and notification.</p>
+    <div class="paper">
+<pre class="mermaid">
+sequenceDiagram
+    actor C as Complainant
+    participant CC as ComplainantController
+    participant M as Complaint Model
+    participant N as Notification System
+    actor A as Administrator
+    participant AC as AdminController
+
+    C->>CC: Submit complaint form
+    CC->>CC: Validate input
+    CC->>M: Complaint::create()
+    M->>M: Auto-generate reference_number
+    M-->>CC: Complaint saved (status = pending)
+    CC->>N: notify(ComplaintSubmitted)
+    N-->>A: In-app + email notification
+    CC-->>C: Redirect with reference number
+
+    A->>AC: Open complaint, write response
+    AC->>M: responses()->create()
+    AC->>M: update(status, resolved_at)
+    AC->>N: notify(ComplaintResolved)
+    N-->>C: In-app + email notification
+    AC-->>A: Confirmation message
+</pre>
+    </div>
+  </section>
+
+  <section class="figure" id="fig-3-6">
+    <div class="fig-head">
+      <span class="fig-num">FIG. 3.6</span>
+      <h2>Activity Diagram &mdash; Complaint Handling</h2>
+    </div>
+    <p class="caption">The activity flow from submission through validation, review, and either resolution or continued investigation.</p>
+    <div class="paper">
+<pre class="mermaid">
+flowchart TD
+    Start(["Start"]) --> Submit["Complainant fills complaint form"]
+    Submit --> Validate{"Valid input?"}
+    Validate -- No --> ShowErrors["Show validation errors"]
+    ShowErrors --> Submit
+    Validate -- Yes --> Save["Save complaint &amp; generate reference number"]
+    Save --> NotifyAdmin["Notify Administrators"]
+    NotifyAdmin --> Review["Administrator reviews complaint"]
+    Review --> SetStatus["Update status / priority / assignee"]
+    SetStatus --> Respond["Administrator writes a response"]
+    Respond --> Resolved{"Marked resolved?"}
+    Resolved -- No --> NotifyUpdate["Notify complainant of status update"]
+    NotifyUpdate --> Review
+    Resolved -- Yes --> Stamp["Set resolved_at timestamp"]
+    Stamp --> NotifyResolved["Notify complainant &mdash; resolved"]
+    NotifyResolved --> End(["End"])
+</pre>
+    </div>
+  </section>
+
+  <section class="figure" id="fig-3-7">
+    <div class="fig-head">
+      <span class="fig-num">FIG. 3.7</span>
+      <h2>System Flowchart</h2>
+    </div>
+    <p class="caption">The overall login-to-logout flow, including the account-status check performed at authentication (Section 4.8).</p>
+    <div class="paper">
+<pre class="mermaid">
+flowchart TD
+    Start(["Start"]) --> Login["User submits email &amp; password"]
+    Login --> Auth{"Credentials valid?"}
+    Auth -- No --> LoginErr["Show authentication error"]
+    LoginErr --> Login
+    Auth -- Yes --> Active{"Account active?"}
+    Active -- No --> Deactivated["Reject at login:<br/>'Account has been deactivated'"]
+    Deactivated --> Login
+    Active -- Yes --> Role{"Role?"}
+    Role -- Complainant --> CD["Complainant Dashboard"]
+    Role -- Admin --> AD["Administrator Dashboard"]
+    Role -- "Super Admin" --> SD["Super Administrator Dashboard"]
+    CD --> Action1["Submit / track complaints, give feedback"]
+    AD --> Action2["Review, respond to, resolve complaints; view reports"]
+    SD --> Action3["Manage users &amp; categories"]
+    Action1 --> Logout["Log out"]
+    Action2 --> Logout
+    Action3 --> Logout
+    Logout --> End(["End"])
+</pre>
+    </div>
+  </section>
+
+  <hr class="rule">
+  <footer>OFCMS &middot; Diagram set for Chapter Three &middot; export each figure and insert at the matching placeholder in the report</footer>
+</div>

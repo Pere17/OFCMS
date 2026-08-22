@@ -1,0 +1,106 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+:root {
+    --ofcms-primary: #1E3A5F;
+    --ofcms-primary-light: #2E5090;
+    --ofcms-accent: #E8A020;
+    --ofcms-success: #2E7D32;
+    --ofcms-danger: #C62828;
+    --ofcms-info: #1565C0;
+    --ofcms-surface: #F5F7FA;
+    --ofcms-card: #FFFFFF;
+    --ofcms-text: #1C2B3A;
+    --ofcms-text-muted: #6B7C8D;
+}
+
+body {
+    background-color: var(--ofcms-surface);
+    color: var(--ofcms-text);
+}
+
+/* Sidebar */
+.ofcms-sidebar {
+    width: 250px;
+    min-height: 100vh;
+    background-color: var(--ofcms-primary);
+}
+
+.ofcms-sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.75);
+    border-radius: 6px;
+    margin-bottom: 2px;
+}
+
+.ofcms-sidebar .nav-link.active,
+.ofcms-sidebar .nav-link:hover {
+    background-color: var(--ofcms-primary-light);
+    color: #fff;
+}
+
+.ofcms-sidebar .navbar-brand {
+    color: #fff;
+}
+
+/* Topbar */
+.ofcms-topbar {
+    background-color: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* Content */
+.ofcms-content {
+    padding: 24px;
+}
+
+.card {
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    border: none;
+}
+
+.stat-card {
+    border-left: 4px solid var(--ofcms-primary-light);
+}
+
+.stat-card.stat-pending { border-left-color: #E8A020; }
+.stat-card.stat-in-progress { border-left-color: var(--ofcms-info); }
+.stat-card.stat-resolved { border-left-color: var(--ofcms-success); }
+.stat-card.stat-total { border-left-color: var(--ofcms-primary-light); }
+
+.timeline {
+    list-style: none;
+    padding-left: 0;
+    position: relative;
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    padding-bottom: 1.5rem;
+    border-left: 2px solid #e0e5eb;
+    margin-left: 0.5rem;
+}
+
+.timeline-item:last-child {
+    border-left-color: transparent;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--ofcms-primary-light);
+}
+
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--ofcms-surface);
+}
