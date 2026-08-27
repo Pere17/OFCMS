@@ -21,7 +21,7 @@ services:
       - key: APP_URL
         sync: false
       - key: APP_KEY
-        generateValue: true
+        sync: false
       - key: APP_LOCALE
         value: en
       - key: APP_FALLBACK_LOCALE
